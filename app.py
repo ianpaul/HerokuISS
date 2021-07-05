@@ -8,23 +8,21 @@ import json
 
 app = dash.Dash(__name__)
 
-def findISS():
+url = 'http://api.open-notify.org/iss-now.json'
 
-    url = 'http://api.open-notify.org/iss-now.json'
+df = pd.read_json(url)
 
-    df = pd.read_json(url)
+df['latitude'] = df.loc['latitude', 'iss_position']
+df['longitude'] = df.loc['longitude', 'iss_position']
+df.reset_index(inplace=True)
 
-    df['latitude'] = df.loc['latitude', 'iss_position']
-    df['longitude'] = df.loc['longitude', 'iss_position']
-    df.reset_index(inplace=True)
+df = df.drop(['index', 'message'], axis=1)
 
-    df = df.drop(['index', 'message'], axis=1)
-
-    fig = px.scatter_geo(df, lat='latitude', lon='longitude')
+fig = px.scatter_geo(df, lat='latitude', lon='longitude')
 
 server = Flask(__name__)
 app = dash.Dash(server=server)
 app.layout = dcc.Graph(figure=fig)
 
 if __name__ == '__main__':
-	app.run_server(debug=True)
+	app.run_server(debug=True, use_reloader=False)
