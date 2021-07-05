@@ -1,7 +1,7 @@
 import flask
 import space2
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 @app.route('/')
 
