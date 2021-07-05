@@ -6,7 +6,7 @@ app = flask.Flask(__name__)
 @app.route('/')
 
 def space():
-	info = findISS()
+	info = space2.findISS()
 	render_template('display.html', info=info['data'])
 	return res
 
