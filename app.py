@@ -1,5 +1,4 @@
-import requests
-from flask import Flask, render_template, redirect, url_for, request
+import Flask
 import space2
 
 app = Flask(__name__)
