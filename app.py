@@ -5,7 +5,7 @@ import plotly.io as pio
 
 app = flask.Flask(__name__)
 
-@app.route('/')
+@app.route('/index.html')
 
 def findISS():
 
@@ -20,7 +20,7 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    fig.write_html("/display.html")
+    fig.write_html("/index.html")
 
 if __name__ == "__main__":
 	app.debug = False
