@@ -7,7 +7,7 @@ app = flask.Flask(__name__)
 
 def space():
 	info = space2.findISS()
-	render_template('display.html', info=info['data'])
+	flask.render_template('display.html', info=info['data'])
 	return res
 
 if __name__ == "__main__":
