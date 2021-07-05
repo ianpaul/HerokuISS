@@ -1,10 +1,17 @@
 import flask
 import pandas as pd
 import plotly.express as px
+import io
 
 app = flask.Flask(__name__)
 
 @app.route('/')
+
+def plot_png():
+    fig = findISS()
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
 def findISS():
 
@@ -19,7 +26,7 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    fig.show()
+    return fig
 
 if __name__ == "__main__":
 	app.debug = False
