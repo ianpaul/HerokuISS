@@ -1,9 +1,10 @@
-import flask
+from flask import Flask, render_template
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
+import json
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 @app.route('/')
 
@@ -20,10 +21,7 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    pio.write_html(fig, file="/index.html", auto_open=False)
+    graphJSON = json.dumps(fig, cls=plotly.utlils.PlotlyJSONEncoder)
 
-if __name__ == "__main__":
-	app.debug = False
-	port = int(os.environ.get('PORT', 33507))
-	waitress.serve(app, port=port)
+    return render_template('display.html', graphJSON=graphJSON)
 
