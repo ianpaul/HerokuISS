@@ -22,7 +22,7 @@ fig = px.scatter_geo(df, lat='latitude', lon='longitude')
 
 server = Flask(__name__)
 app = dash.Dash(server=server)
-app.layout = dcc.Graph(figure=fig, title="Check out where the ISS is right now:", display="inline-block", style={"width": "1920px", "height": "1080px"})
+app.layout = dcc.Graph(figure=fig, style={"width": "1920px", "height": "1080px", "display": "inline-block"})
 
 if __name__ == '__main__':
 	app.run_server(debug=True, use_reloader=False)
