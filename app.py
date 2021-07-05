@@ -6,6 +6,8 @@ import plotly.express as px
 import plotly
 import json
 
+app = dash.Dash(__name__)
+
 def findISS():
 
     url = 'http://api.open-notify.org/iss-now.json'
@@ -22,7 +24,7 @@ def findISS():
 
 server = Flask(__name__)
 app = dash.Dash(server=server)
-app.layout = dcc.Graph(figure=findISS())
+app.layout = dcc.Graph(figure=fig)
 
 if __name__ == '__main__':
 	app.run_server(debug=True)
