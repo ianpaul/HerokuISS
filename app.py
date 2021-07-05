@@ -1,11 +1,10 @@
 import dash
+from flask import Flask
 import dash_core_components as dcc
 import pandas as pd
 import plotly.express as px
 import plotly
 import json
-
-app = dash.Dash(__name__)
 
 def findISS():
 
@@ -21,7 +20,9 @@ def findISS():
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
 
-app.layout = dcc.Graph(figure=findISS(), style={"width": "100%", "height": "100vh"})
+server = Flask(__name__)
+app = dash.Dash(server=server)
+app.layout = dcc.Graph(figure=findISS())
 
 if __name__ == '__main__':
 	app.run_server(debug=True)
