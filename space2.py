@@ -16,4 +16,3 @@ def findISS():
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
     fig.show()
 
-findISS()
