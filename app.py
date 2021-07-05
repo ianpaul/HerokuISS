@@ -8,24 +8,25 @@ import json
 
 app = dash.Dash(__name__)
 
-url = 'http://api.open-notify.org/iss-now.json'
+def findISS():
 
-df = pd.read_json(url)
+    url = 'http://api.open-notify.org/iss-now.json'
 
-df['latitude'] = df.loc['latitude', 'iss_position']
-df['longitude'] = df.loc['longitude', 'iss_position']
-df.reset_index(inplace=True)
+    df = pd.read_json(url)
 
-df = df.drop(['index', 'message'], axis=1)
+    df['latitude'] = df.loc['latitude', 'iss_position']
+    df['longitude'] = df.loc['longitude', 'iss_position']
+    df.reset_index(inplace=True)
 
-fig = px.scatter_geo(df, lat='latitude', lon='longitude')
+    df = df.drop(['index', 'message'], axis=1)
+
+    fig = px.scatter_geo(df, lat='latitude', lon='longitude')
+    return dcc.Graph(figure=fig, style={"width": "1920px", "height": "1080px", "display": "inline-block"})
 
 server = Flask(__name__)
 app = dash.Dash(server=server)
 
-def serve_layout():
-	return dcc.Graph(figure=fig, style={"width": "1920px", "height": "1080px", "display": "inline-block"})
+app.layout = findISS
 
-app.layout = serve_layout
 if __name__ == '__main__':
 	app.run_server(debug=True)
