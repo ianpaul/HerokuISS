@@ -1,12 +1,11 @@
-from flask import Flask, render_template
+import dash
+import dash_core_components as dcc
 import pandas as pd
 import plotly.express as px
 import plotly
 import json
 
-app = Flask(__name__)
-
-@app.route('/')
+app = dash.Dash(__name__)
 
 def findISS():
 
@@ -21,7 +20,9 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    
+app= dash.Dash(server=server, routes_pathname_prefix="/")
+app.layout = dcc.Graph(figure=findISS(), style={"width": "100%", "height": "100vh"})
 
-    return render_template('display.html', graphJSON=graphJSON)
-
+if __name__ == '__main__':
+	app.run_server()
