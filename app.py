@@ -20,7 +20,8 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    pio.write_html(fig, file='display.html', auto_open=True)
+    show_station = pio.write_html(fig, file='display.html', auto_open=True)
+    return show_station
 
 if __name__ == "__main__":
 	app.debug = False
