@@ -10,7 +10,7 @@ def space():
 	render_template('display.html', info=info['data'])
 	return res
 
-if __name == "__main__":
+if __name__ == "__main__":
 	app.debug = False
 	port = int(os.environ.get('PORT', 33507))
 	waitress.serve(app, port=port)
