@@ -22,7 +22,7 @@ fig = px.scatter_geo(df, lat='latitude', lon='longitude')
 
 server = Flask(__name__)
 app = dash.Dash(server=server)
-app.layout = dcc.Graph(figure=fig, style={"width": "300%", "height": "300%"})
+app.layout = dcc.Graph(figure=fig, style={"width": "1920px", "height": "1080px"})
 
 if __name__ == '__main__':
 	app.run_server(debug=True, use_reloader=False)
