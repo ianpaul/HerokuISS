@@ -7,8 +7,6 @@ app = flask.Flask(__name__)
 
 @app.route('/')
 
-pio.write_html(fig, file='display.html', auto_open=True)
-
 def findISS():
 
     url = 'http://api.open-notify.org/iss-now.json'
@@ -23,6 +21,7 @@ def findISS():
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
     fig.show()
+    pio.write_html(fig, file='display.html', auto_open=True)
 
 if __name__ == "__main__":
 	app.debug = False
