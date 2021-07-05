@@ -1,14 +1,25 @@
 import flask
-import space2
+import pandas as pd
+import plotly.express as px
 
 app = flask.Flask(__name__)
 
 @app.route('/')
 
-def space():
-	info = space2.findISS()
-	flask.render_template('display.html', info=info['data'])
-	return res
+def findISS():
+
+    url = 'http://api.open-notify.org/iss-now.json'
+
+    df = pd.read_json(url)
+
+    df['latitude'] = df.loc['latitude', 'iss_position']
+    df['longitude'] = df.loc['longitude', 'iss_position']
+    df.reset_index(inplace=True)
+
+    df = df.drop(['index', 'message'], axis=1)
+
+    fig = px.scatter_geo(df, lat='latitude', lon='longitude')
+    fig.show()
 
 if __name__ == "__main__":
 	app.debug = False
