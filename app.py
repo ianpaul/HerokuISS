@@ -20,9 +20,8 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    
-app= dash.Dash(server=server, routes_pathname_prefix="/")
+
 app.layout = dcc.Graph(figure=findISS(), style={"width": "100%", "height": "100vh"})
 
 if __name__ == '__main__':
-	app.run_server()
+	app.run_server(debug=True)
