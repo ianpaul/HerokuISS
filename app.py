@@ -5,7 +5,7 @@ import plotly.io as pio
 
 app = flask.Flask(__name__)
 
-@app.route('/display.html')
+@app.route('/')
 
 def findISS():
 
