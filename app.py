@@ -21,7 +21,7 @@ def findISS():
     df = df.drop(['index', 'message'], axis=1)
 
     fig = px.scatter_geo(df, lat='latitude', lon='longitude')
-    graphJSON = json.dumps(fig, cls=plotly.utlils.PlotlyJSONEncoder)
+    graphJSON = json.dumps(fig, cls=pio.utlils.PlotlyJSONEncoder)
 
     return render_template('display.html', graphJSON=graphJSON)
 
