@@ -1,4 +1,4 @@
-import Flask
+import flask
 import space2
 
 app = Flask(__name__)
